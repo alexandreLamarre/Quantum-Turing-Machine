@@ -1,2 +1,1 @@
-# Quantum-Turing-Machine
-A Quantum Turing Machine simulation in Verilog
+<p align="center"><img src="https://rawgit.com/alexandreLamarre/Quantum-Turing-Machine (fetch/main/svgs/9ed6c8a50133bd3cfaed004610d8d66e.svg?invert_in_darkmode" align=middle width=33.1185129pt height=14.202794099999998pt/></p>
