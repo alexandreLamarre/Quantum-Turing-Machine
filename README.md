@@ -28,7 +28,7 @@ Use a dektop verilog tool to run `main.v` or an [online compiler](https://www.tu
 
 #### Mathematical Description
 
-![ClassicalTM](tex/classicalTuring.pdf)
+![](tex/classicalTuring.pdf?raw=true)
 
 Sipser(140)
 
