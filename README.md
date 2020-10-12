@@ -28,7 +28,7 @@ Use a dektop verilog tool to run `main.v` or an [online compiler](https://www.tu
 
 #### Mathematical Description
 
-<img src = "/tex/classicalTuring.pdf"/>
+<img src = "/ex/classicalTuring.pdf"/>
 
 Sipser(140)
 
