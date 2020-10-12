@@ -28,7 +28,7 @@ Use a dektop verilog tool to run `main.v` or an [online compiler](https://www.tu
 
 #### Mathematical Description
 
-<img src = "https://github.com/alexandreLamarre/Quantum-Turing-Machine/blob/main/tex/classicalTuring.pdf"/>
+![ClassicalTM](tex/classicalTuring.pdf)
 
 Sipser(140)
 
