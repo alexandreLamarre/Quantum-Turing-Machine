@@ -26,9 +26,13 @@ Use a dektop verilog tool to run `main.v` or an [online compiler](https://www.tu
 
 #### Brief Overview
 
+A classical Turing Machine represents a theoretical model for how computer processes should function. In practice, they are applied to circuit deisgn to contruct computers as well as study, from a theoretical standpoint, the problems that can and cannot be solved by a computer.
+
+In short, a Turing machine is represented as a tape, divided into cells, that can hold symbols. We describe how processes modelled by a Turing Machine evolve over time by a set of states, that must start at some state. The set of states must also include states that represent accepting criteria and states that represent rejection criteria. The accepting criteria and rejection criteria must never be the same. In the simplest model of a Turing Machine, when transitioning from one state to another, the machine can choose to write a symbol to the current tape cell and then move left or right along the tape. In other variants of Turing Machines, the transition 'actions' can include many other actions, instead of just writing to or erasing the current cell and moving left or right along the tape.
+
 #### Mathematical Description
 
-![](classicalTuring.pdf)
+![](tex/classicalTuring.png)
 
 Sipser(140)
 
