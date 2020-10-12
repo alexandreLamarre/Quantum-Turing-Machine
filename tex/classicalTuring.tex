@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+
+
+\begin{document}
+
+
+
+A \textbf{Turing Machine} is a 7-tuple, ($Q$, $\Sigma$, $\Gamma$, $\delta$, $q_0$, $q_accept$, $q_reject$) where $Q$, $\Sigma$, $\Gamma$ are all finite sets and
+
+\begin{enumerate}
+    \item $Q$ is the set of states
+    \item $\Sigma$ is the input alphabet not containing the \textbf{blank symbol} \textvisiblespace
+    \item $\Gamma$ is the tape alphabet, where $\textvisiblespace$ $\in \Gamma$ and $\Sigma \subseteq \Gamma$
+    \item $\delta$ : $Q \times \Gamma $ $\Longrightarrow$ $Q \times \Gamma \{L,R\}$ is the transition function
+    \item $q_0$ is the start state
+    \item $q_{accept} \in Q$ is the start state
+    \item $q_{reject} \in Q$ is the reject state where $q_{reject} \neq q_{accept}$
+    
+\end{enumerate}
+
+\end{document}

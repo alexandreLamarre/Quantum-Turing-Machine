@@ -28,6 +28,10 @@ Use a dektop verilog tool to run `main.v` or an [online compiler](https://www.tu
 
 #### Mathematical Description
 
+<img src = "/tex/classicalTuring.pdf"/>
+
+Sipser(140)
+
 #### Types of Classical Turing Machines
 
 ### Quantum Turing Machines
@@ -49,3 +53,5 @@ Use a dektop verilog tool to run `main.v` or an [online compiler](https://www.tu
 
 ### References
 
+- Sipser, Michael. "Introduction to the Theory of Computation." ACM Sigact News 27.1 (1996): 27-29.
+- Kime, Charles R., and M. Morris Mano. Logic and computer design fundamentals. Prentice Hall, 2003.
