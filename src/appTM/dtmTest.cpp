@@ -1,5 +1,14 @@
 #include "DTM.h"
 #include <iostream>
+#include <vector>
+
+int printError(std::string message, void *error_obj){
+    std::cout << message+" ";
+    if(error_obj != NULL) std::cout << error_obj;
+    std::cout << "\n";
+    return -1;
+}
+
 
 int testState(){
     State new_state = State("q0", 1, 0, 0);
@@ -27,7 +36,60 @@ int testState(){
 }
 
 int testStates(){
+    //============State Declaration=============
     States tm_states = States();
+    if(tm_states.getStates().size() != 0) return -1;
+
+    //============Adding States==================
+    State initial_state = State("q0", 1, 0,0);
+    tm_states.addState(initial_state);
+    if(tm_states.getStates().size() != 1) return -1;
+
+    std::vector<State> get_states = tm_states.getStates();
+    if(get_states[0] != initial_state) return -1;
+    if(get_states[0].is_initial()!= 1) return -1;
+
+    State intermediate_state = State("q1", 0, 0, 0);
+    tm_states.addState(intermediate_state);
+    std::vector<State> get_next_states = tm_states.getStates();
+    if(get_next_states.size() != 2) return -1;
+    if(get_next_states[0] != initial_state || get_next_states[1] != intermediate_state) return -1;
+    State check = get_next_states[1];
+    if(check.is_initial() != 0 || check.is_accepting() != 0 || check.is_rejecting()!= 0 || check.getName() != "q1") return -1;
+
+    State intermediate_state2 = State("q2", 0, 0 ,0);
+    tm_states.addState(intermediate_state2);
+    get_next_states = tm_states.getStates();
+    if(get_next_states.size() != 3) return -1;
+    if(get_next_states[0] != initial_state || get_next_states[1] != intermediate_state ||
+            get_next_states[2] != intermediate_state2) return -1;
+
+
+    //================Removing States==============
+
+    int success = tm_states.removeState(intermediate_state);
+    if(success != 0) return -1;
+    get_next_states = tm_states.getStates();
+    if(get_next_states.size() != 2) return -1;
+    if(get_next_states[0] != initial_state) return -1;
+    if(get_next_states[1] != intermediate_state2) return printError("Element at index 1 should be", &intermediate_state2);
+    success = tm_states.removeState(intermediate_state);
+    std::cout << success << "\n";
+    if(success != -1) return printError("Removing non-existent element should return -1", &intermediate_state2);
+
+//    success = tm_states.removeState(initial_state);
+//    if(success != 0) return -1;
+//    get_next_states = tm_states.getStates();
+//    if(get_next_states.size()!= 1) return -1;
+//    if(get_next_states[0] != intermediate_state2) return  -1;
+//    success = tm_states.removeState(initial_state);
+//    if(success != -1) return -1;
+//    success = tm_states.removeState(intermediate_state2);
+//    if(success != 0) return -1;
+//    get_next_states = tm_states.getStates();
+//    if(get_next_states.size()!= 0) return -1;
+
+
     return 0;
 }
 

@@ -64,13 +64,32 @@ public:
         }
     }
 
+    bool operator != (const State &m){
+        if(!(name == getName() && initial == m.is_initial() && accept == m.is_accepting() && reject == m.is_rejecting())){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 };
+
+std::ostream& operator<<(std::ostream& os, const State &s){
+    os << s.getName() << "/" << "initial:"<<s.is_initial()<<"/"<<"accepting:"<<
+          s.is_accepting()<<"/"<<"rejecting:"<<s.is_rejecting()<<"/"<<"malformed:"<<s.is_malformed();
+    return os;
+}
 
 class States{
 public:
     std::vector<State> states;
     std::vector<std::tuple<int, std::vector<std::tuple<char,int>>>> transitions; //index of current state -> symbol transition,index of next state
     States()= default;
+
+    std::vector<State> getStates(){
+        return states;
+    }
 
     void addState(const State &q){
         states.push_back(q);
@@ -96,8 +115,11 @@ public:
     }
 
     int removeState(const State &remove_state){
-        for(auto &state : states){
-
+        for(int i = 0; i < states.size(); i++){
+            if(states[i] == remove_state){
+                states.erase(states.begin()+i);
+                return 0;
+            }
         }
         return -1;
     }
