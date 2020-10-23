@@ -1,4 +1,5 @@
 #include "DTM.h"
+#include <iostream>
 #include <vector>
 #include <string>
 
