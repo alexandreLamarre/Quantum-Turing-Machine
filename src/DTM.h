@@ -55,19 +55,55 @@ public:
 class States{
 public:
     std::vector<State> states;
-    std::vector<int> transitions;
+    std::vector<std::tuple<int, std::vector<std::tuple<char,int>>>> transitions; //index of current state -> symbol transition,index of next state
     States()= default;
 
     void addState(const State &q){
         states.push_back(q);
+        std::vector<std::tuple<char, int>> empty;
+        std::tuple<int, std::vector<std::tuple<char, int>>> new_transition_index = std::make_tuple(states.size()-1, empty );
+        transitions.push_back(new_transition_index);
     }
 
-    int addTransition(const State& input_state, const State &transition_state, const Action &action){
-        if(getTransitionIndex(transition_state) == -1) return -1;
+    int addTransition(const State &input_state, const State &transition_state, const char symbol){
+        int startIndex = getTransitionIndex(input_state);
+        int endIndex = getTransitionIndex(transition_state);
+        if(endIndex == -1 || startIndex == -1) return -1;
         else{
-            
+            for(auto & transition : transitions){
+                if(std::get<0>(transition) == startIndex){
+                    std::vector<std::tuple<char,int>> input_state_transitions = std::get<1>(transition);
+                    input_state_transitions.emplace_back(symbol,endIndex);
+                    return 0;
+                }
+            }
         }
-        return 0;
+        return -1;
+    }
+
+    int removeState(const State &remove_state){
+        for(auto &state : states){
+
+        }
+        return -1;
+    }
+
+    int removeTransition(const State &start_state, const State &end_state, const char symbol){
+        int startIndex = getTransitionIndex(start_state);
+        int endIndex = getTransitionIndex(end_state);
+        if(startIndex == -1 || endIndex == -1) return -1;
+        for(auto &transition_index: transitions){
+            if(std::get<0>(transition_index) == startIndex){
+                std::vector<std::tuple<char, int>> state_transitions = std::get<1>(transition_index);
+                for(int i =0; i < state_transitions.size(); i++){
+                    if(std::get<1>(state_transitions[i]) == endIndex && std::get<0>(state_transitions[i]) == symbol){
+                        state_transitions.erase(state_transitions.begin()+i);
+                        return 0;
+                    }
+                }
+            }
+        }
+        return -1;
     }
 
 private:
@@ -84,14 +120,15 @@ private:
 
 class DTM{
 public:
-    std::vector<int> states;
+    States states;
     std::vector<int> tape;
     std::vector<std::string> alphabet;
     char blankSymbol;
     int head;
-    DTM(std::vector<int> states, std::string input_alphabet, char blank){
-        states = states;
+    DTM(const States &input_states, const std::string &input_alphabet, char blank){
+        states = input_states;
         blankSymbol = blank;
         head = 0;
     }
 };
+
