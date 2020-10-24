@@ -39,20 +39,24 @@ public:
         return name;
     }
 
-    int is_initial() const{
-        return initial;
+    bool is_initial() const{
+        if(initial == 1) return true;
+        return false;
     }
 
     int is_accepting() const{
-        return accept;
+        if(accept == 1) return true;
+        return false;
     }
 
     int is_rejecting() const{
-        return reject;
+        if(reject == 1) return true;
+        return false;
     }
 
     int is_malformed() const{
-        return accept == 1 && reject==1;
+        if(accept == 1 && reject == 1) return true;
+        return false;
     }
 
     bool operator == (const State &m){
@@ -72,14 +76,14 @@ public:
             return false;
         }
     }
+    friend std::ostream& operator<<(std::ostream& os, const State& s){
+        os << s.getName() << "/" << "initial:"<<s.is_initial()<<"/"<<"accepting:"<<
+              s.is_accepting()<<"/"<<"rejecting:"<<s.is_rejecting()<<"/"<<"malformed:"<<s.is_malformed();
+        return os;
+    }
 
 };
 
-std::ostream& operator<<(std::ostream& os, const State& s){
-    os << s.getName() << "/" << "initial:"<<s.is_initial()<<"/"<<"accepting:"<<
-          s.is_accepting()<<"/"<<"rejecting:"<<s.is_rejecting()<<"/"<<"malformed:"<<s.is_malformed();
-    return os;
-}
 
 class States{
 public:
@@ -91,7 +95,7 @@ public:
     }
 
     void addState(const State &q){
-        if(q.is_malformed() == 0) states.push_back(q);
+        if(!q.is_malformed()) states.push_back(q);
     }
 
     int removeState(const State &remove_state){
@@ -110,25 +114,25 @@ public:
         states.clear();
     }
 
-    int contains_initial(){
+    bool contains_initial(){
         for(auto &state: states){
-            if(state.is_initial() == 1) return 1;
+            if(state.is_initial()) return true;
         }
-        return 0;
+        return false;
     }
 
-    int contains_accept(){
+    bool contains_accept(){
         for(auto &state: states){
-            if(state.is_accepting() == 1) return 1;
+            if(state.is_accepting()) return true;
         }
-        return 0;
+        return false;
     }
 
-    int contains_reject(){
+    bool contains_reject(){
         for(auto &state: states){
-            if(state.is_rejecting() == 1) return 1;
+            if(state.is_rejecting()) return true;
         }
-        return 0;
+        return false;
     }
 
 
@@ -181,8 +185,8 @@ public:
     }
 
     bool isValidTM(){
-       if(states.contains_initial() == 1 && states.contains_accept() == 1
-               && states.contains_reject() == 1){
+       if(states.contains_initial() && states.contains_accept()
+               && states.contains_reject()){
            return true;
        }
        return false;
@@ -210,3 +214,8 @@ public:
     }
 
 };
+
+int testState();
+int testStates();
+int testDTM();
+int testAction();

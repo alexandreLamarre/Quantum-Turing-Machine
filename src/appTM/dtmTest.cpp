@@ -1,6 +1,8 @@
 #include "DTM.h"
 #include <iostream>
 #include <vector>
+
+
 template <typename T>
 int printError(std::string message, T error_obj){
     std::cout << "Expected: \n"<< message+"\n";
@@ -15,32 +17,32 @@ int testState(){
     State new_state = State("q0", 1, 0, 0);
 
     //=========== Getters ===============
-    if(new_state.getName() != "q0") return -1;
-    if(new_state.is_initial() != 1) return -1;
-    if(new_state.is_accepting()!= 0) return -1;
-    if(new_state.is_rejecting() != 0) return -1;
-
+    if(new_state.getName() != "q0") return printError("q0", new_state.getName());
+    if(!new_state.is_initial()) return printError("state to be initial", new_state.is_initial());
+    if(new_state.is_accepting()) return printError("state to not be accepting", new_state.is_accepting());
+    if(new_state.is_rejecting()) return printError("state to not be rejecting", new_state.is_rejecting());
+    if(new_state.is_malformed()) return printError("state to not be malformed", new_state.is_malformed());
     State next_state = State("any_name_here", 1, 1, 0);
-    if(next_state.getName() != "any_name_here") return -1;
-    if(next_state.is_initial() != 1) return -1;
-    if(next_state.is_accepting() != 1) return -1;
-    if(next_state.is_rejecting() != 0) return -1;
+    if(next_state.getName() != "any_name_here") return printError("any_name_here", next_state.getName());
+    if(!next_state.is_initial()) return printError("state to be initial", next_state.is_initial());
+    if(!next_state.is_accepting()) return printError("state to be accepting", new_state.is_accepting());
+    if(next_state.is_rejecting()) return printError("state to not be rejecting", new_state.is_rejecting());
 
     State reject_state = State("stop", 0,0,1);
-    if(reject_state.getName() != "stop") return -1;
-    if(reject_state.is_initial()!= 0) return -1;
-    if(reject_state.is_accepting()!= 0) return -1;
-    if(reject_state.is_rejecting()!= 1) return -1;
+    if(reject_state.getName() != "stop") return printError("stop", reject_state.getName());
+    if(reject_state.is_initial()) return printError("state to not be initial", reject_state.is_initial());
+    if(reject_state.is_accepting()) return printError("state to not be accepting", reject_state.is_accepting());
+    if(!reject_state.is_rejecting()) return printError("state to be rejecting", reject_state.is_rejecting());
 
     State malformed_input_state = State("invalid", 0,1,1);
-    if(next_state.is_malformed()!= 0) return -1;
+    if(!malformed_input_state.is_malformed()) return printError("state to be malformed", next_state.is_malformed());
 
     // ================== Operators ==================
-    if(new_state == next_state || new_state == reject_state || new_state == malformed_input_state) return -1;
-    if(new_state != new_state) return -1;
+    if(new_state == next_state || new_state == reject_state || new_state == malformed_input_state) return printError("states to be distinct", NULL);
+    if(new_state != new_state) return printError("state to be the same", NULL);
 
     State copy_state("q00", 1, 0 ,0);
-    if(new_state == copy_state) return -1;
+    if(new_state == copy_state) return printError("state to be different", NULL);
     return 0;
 }
 
@@ -175,17 +177,4 @@ int testDTM(){
     return 0;
 }
 
-int main(){
-    if(testState() == -1) std::cout << "Tests failed for State object\n";
-    else std::cout << "Tests passed for State object\n";
 
-    if(testStates() == -1) std::cout << "Tests failed for States object\n";
-    else std::cout << "Tests passed for States Object\n";
-
-    if(testAction() == -1) std::cout << "Tests failed for Action object\n";
-    else std::cout << "Tests passed for Action Object\n";
-
-    if(testDTM() == -1) std::cout << "Tests failed for DTM object\n";
-    else std::cout << "Tests passed for DTM Object\n";
-    return 0;
-}

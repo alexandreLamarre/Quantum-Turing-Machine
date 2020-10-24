@@ -11,10 +11,12 @@ CONFIG += c++11
 SOURCES += \
     dtmTest.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    testDictionary.cpp
 
 HEADERS += \
     DTM.h \
+    dictionary.h \
     mainwindow.h
 
 FORMS += \
