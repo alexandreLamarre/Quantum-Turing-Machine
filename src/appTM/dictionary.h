@@ -46,6 +46,19 @@ public:
         container.push_back(new_pair);
     }
 
+    void remove(T key){
+        if(has(key)){
+            for(std::pair<T,U> kv_pair: container){
+                int index = 0;
+                if(std::get<0>(kv_pair) == key){
+                     container.erase(container.begin()+index);
+                     break;
+                }
+                index ++;
+            }
+        }
+    }
+
     U get(T key){
         for(std::pair<T,U> kv_pair: container){
             if(std::get<0>(kv_pair) == key){
@@ -53,6 +66,11 @@ public:
             }
         }
         throw("Invalid key");
+    }
+
+    void clear(){
+        std::vector<std::pair<T,U>> empty_container;
+        container = empty_container;
     }
 
 
