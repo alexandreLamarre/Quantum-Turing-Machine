@@ -7,6 +7,7 @@
 #include <string>
 #include <tuple>
 #include <exception>
+#include "dictionary.h"
 
 class StateException: public std::exception{
     virtual const char* what() const throw(){
@@ -138,6 +139,55 @@ public:
 
 };
 
+class Transitions{
+public:
+    Dictionary<State, Dictionary<char,State>> transitions;
+    Transitions() = default;
+
+    void addTransition(const State &start, const State &end, const char symbol){
+        if(transitions.has(start)){
+            Dictionary<char, State> cur_transitions = transitions.get(start);
+            cur_transitions.add(symbol, end);
+        }
+        else{
+            Dictionary<char, State> empty_dict;
+            transitions.add(start, empty_dict);
+            Dictionary<char, State> cur_transitions = transitions.get(start);
+            cur_transitions.add(symbol, end);
+        }
+    }
+
+    void removeTransition(const State &start, const char symbol){
+        if(!transitions.has(start)){
+            ;
+        }
+        else{
+            Dictionary<char, State> cur_transitions = transitions.get(start);
+            cur_transitions.remove(symbol);
+        }
+    }
+
+    void clearTransition(const State &start){
+        if(!transitions.has(start)){
+            ;
+        }
+        else{
+            Dictionary<char, State> empty_transitions;
+            Dictionary<char, State> cur_transitions = transitions.get(start);
+            cur_transitions = empty_transitions;
+        }
+
+    }
+
+    void clearAllTransitions(){
+        Dictionary<State, Dictionary<char, State>> empty_transitions;
+        transitions = empty_transitions;
+    }
+
+
+};
+
+
 class DTM{
 public:
     States states;
@@ -217,5 +267,6 @@ public:
 
 int testState();
 int testStates();
+int testTransitions();
 int testDTM();
 int testAction();

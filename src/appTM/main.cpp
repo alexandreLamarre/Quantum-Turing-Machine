@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "dictionary.h"
 #include "DTM.h"
 #include <QApplication>
 
@@ -12,6 +11,9 @@ void test_all(){
 
     if(testDict() == -1)std::cout << "Tests failed for Dictionary object\n";
     else std::cout << "Tests passed for Dictionary object\n";
+
+    if(testTransitions() == 1) std::cout << "Tests failed for Transitions object\n";
+    else std::cout << "Tests pased for Transitions object\n";
 
     if(testAction() == -1) std::cout << "Tests failed for Action object\n";
     else std::cout << "Tests passed for Action Object\n";
